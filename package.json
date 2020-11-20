@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/almaceleste/openedu-nodejs-week6/issues"
   },
-  "homepage": "https://github.com/almaceleste/openedu-nodejs-week6#readme"
+  "homepage": "https://github.com/almaceleste/openedu-nodejs-week6#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
