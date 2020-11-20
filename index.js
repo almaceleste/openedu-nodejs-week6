@@ -7,7 +7,6 @@ import http from 'http';
 import App from './app.js';
 
 const app = App(express, bodyParser, fs, crypto, http);
-console.log('app:', app);
 
 app.listen(app.port, logParams);
 

@@ -34,6 +34,7 @@ export default function App(express, bodyParser, fs, crypto, http) {
         .use(finalhandler);
 
     return app;
+
     // functions
 
     function cors(req, res, next) {
@@ -42,9 +43,7 @@ export default function App(express, bodyParser, fs, crypto, http) {
     }
 
     function code(req, res) {
-        // console.log('code:', import.meta.url);
         res.send(
-            // fs.readFileSync('./app.js')
             fs.readFileSync(import.meta.url.substring(7))
         );
     }
@@ -60,7 +59,6 @@ export default function App(express, bodyParser, fs, crypto, http) {
             let data = '';
             response.on('data', (chunk) => data += chunk);
             response.on('end', () => {
-                console.log('http:', data);
                 res
                     .set({
                         Accept: 'text/plain',
