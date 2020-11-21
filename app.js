@@ -48,7 +48,7 @@ export default function App(express, bodyParser, fs, crypto, http) {
                 res.send('error:', err);
             }
             else {
-                res.send(data);
+                res.end(data);
             }
         });
     }

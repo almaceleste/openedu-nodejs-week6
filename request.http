@@ -1,6 +1,9 @@
 @protocol = http
 @hostname = localhost
 @port = 3000
+# @protocol = https
+# @hostname = hessian-openedu-nodejs-week6.herokuapp.com
+# @port = 443
 @host = {{hostname}}:{{port}}
 @url = http://node-server.online/r/assets/week.txt
 # @url = test
