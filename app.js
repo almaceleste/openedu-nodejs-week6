@@ -45,7 +45,13 @@ export default function App(express, bodyParser, fs, crypto, http) {
     function code(req, res) {
         fs.readFile(import.meta.url.substring(7), (err, data) => {
             if (err) {
-                res.send('error:', err);
+                if (err.code === 'ENOENT') {
+                    res.status(404)
+                        .end('NOT FOUND');
+                }
+                else {
+                    res.status(500).end('error:', err);
+                }
             }
             else {
                 res.end(data);
