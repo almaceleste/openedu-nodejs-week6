@@ -62,7 +62,7 @@ export default function App(express, bodyParser, fs, crypto, http) {
     function sha1(r) {
         const sha1 = crypto.createHash('sha1');
         sha1.update(r.params.input);
-        r.res.send(sha1.digest());
+        r.res.send(sha1.digest('hex'));
     }
 
     function getData(url, res) {
