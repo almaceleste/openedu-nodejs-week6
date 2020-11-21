@@ -12,7 +12,7 @@ export default function App(express, bodyParser, fs, crypto, http) {
         .get(sha1);
 
     router
-        .route('/req/:addr/')
+        .route('/req/:addr')
         .get((r) => {
             getData(r.params.addr, r.res);
         });
@@ -43,15 +43,20 @@ export default function App(express, bodyParser, fs, crypto, http) {
     }
 
     function code(req, res) {
-        res.send(
-            fs.readFileSync(import.meta.url.substring(7))
-        );
+        fs.readFile(import.meta.url.substring(7), (err, data) => {
+            if (err) {
+                res.send('error:', err);
+            }
+            else {
+                res.send(data);
+            }
+        });
     }
 
     function sha1(r) {
         const sha1 = crypto.createHash('sha1');
         sha1.update(r.params.input);
-        r.res.send(sha1.digest('base64'));
+        r.res.send(sha1.digest());
     }
 
     function getData(url, res) {
@@ -61,9 +66,9 @@ export default function App(express, bodyParser, fs, crypto, http) {
             response.on('end', () => {
                 res
                     .set({
-                        Accept: 'text/plain',
+                        'Content-Type': 'text/plain; charset=utf-8',
                     })
-                    .send(data);
+                    .end(data);
             });
         });
     }
