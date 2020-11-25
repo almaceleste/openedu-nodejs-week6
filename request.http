@@ -24,9 +24,6 @@ GET {{protocol}}://{{host}}/sha1/hola/
 # @name sha1-mundo
 GET {{protocol}}://{{host}}/sha1/mundo/
 ###
-# @name req-path
-GET {{protocol}}://{{host}}/req/{{url}}
-###
 # @name req-query
 GET {{protocol}}://{{host}}/req/?addr={{url}}
 ###
@@ -34,4 +31,15 @@ GET {{protocol}}://{{host}}/req/?addr={{url}}
 POST {{protocol}}://{{host}}/req/
 Content-Type: application/x-www-form-urlencoded
 
-addr={{url}}
+&addr={{url}}
+###
+# @name insert-get
+GET {{protocol}}://{{host}}/insert/
+###
+# @name insert-post
+POST {{protocol}}://{{host}}/insert/
+Content-Type: application/x-www-form-urlencoded
+
+&login=frodo
+&password=ring
+&URL=mongodb%2Bsrv://writer:CxqPNT7CjY6EEGw@cluster0.mrnaa.mongodb.net/test?retryWrites=true%26w=majority
