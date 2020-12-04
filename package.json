@@ -23,6 +23,7 @@
   "homepage": "https://github.com/almaceleste/openedu-nodejs-week6#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "mongoose": "^5.10.15"
+    "mongoose": "^5.10.15",
+    "pug": "^3.0.0"
   }
 }

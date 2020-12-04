@@ -14,24 +14,19 @@ router
 
 router
     .route('/req/')
-    .get((r) => {
-        app.getData(r.query.addr, r.res);
+    .get(async (r) => {
+        const data = await app.getData(r.query.addr);
+        app.sendData(r.res, data);
     })
-    .post((r) => {
-        app.getData(r.body.addr, r.res);
+    .post(async (r) => {
+        const data = await app.getData(r.body.addr);
+        app.sendData(r.res, data);
     });
 
 router
     .route('/insert/')
-    .get((r) => {
-        r.res.status(405).send('Method Not Allowed. Use method POST instead.');
-    })
+    .get((r) => app.notAllowed(r.res))
     .post(async (r) => {
-        // r.res.send(JSON.stringify({
-        //     login: r.body.login,
-        //     password: r.body.password,
-        //     url: r.body.URL
-        // }));
         const record = await app.insertOne(
             r.body.login,
             r.body.password,
@@ -44,3 +39,16 @@ router
             r.res.send(`record ${record._id} created successful`);
         }
 });
+
+router
+    .route('/render/')
+    .get((r) => app.notAllowed(r.res))
+    .post(async (r) => {
+        const view = await app.getData(r.query.addr);
+        const data = {
+            login: "hessian",
+            random2: r.body.random2,
+            random3: r.body.random3
+        };
+        r.res.send(app.render(view, data));
+    });

@@ -1,12 +1,14 @@
 @protocol = http
 @hostname = localhost
-@port = 3000
+# @port = 3000
+@port = 80
 # @protocol = https
 # @hostname = hessian-openedu-nodejs-week6.herokuapp.com
 # @port = 443
 @host = {{hostname}}:{{port}}
-@url = http://node-server.online/r/assets/week.txt
-# @url = test
+@requrl = http://node-server.online/r/assets/week.txt
+# @requrl = test
+@renderurl = http://kodaktor.ru/j/unsafe_0ebdb
 
 ###
 # @name root
@@ -25,13 +27,13 @@ GET {{protocol}}://{{host}}/sha1/hola/
 GET {{protocol}}://{{host}}/sha1/mundo/
 ###
 # @name req-query
-GET {{protocol}}://{{host}}/req/?addr={{url}}
+GET {{protocol}}://{{host}}/req/?addr={{requrl}}
 ###
 # @name req-post
 POST {{protocol}}://{{host}}/req/
 Content-Type: application/x-www-form-urlencoded
 
-&addr={{url}}
+&addr={{requrl}}
 ###
 # @name insert-get
 GET {{protocol}}://{{host}}/insert/
@@ -43,3 +45,18 @@ Content-Type: application/x-www-form-urlencoded
 &login=frodo
 &password=ring
 &URL=mongodb%2Bsrv://writer:CxqPNT7CjY6EEGw@cluster0.mrnaa.mongodb.net/test?retryWrites=true%26w=majority
+###
+# @name wordpress
+GET {{protocol}}://{{host}}/wordpress/wp-json/wp/v2/posts/1
+###
+# @name render-get
+GET {{protocol}}://{{host}}/render/?addr={{renderurl}}
+###
+# @name render-post
+POST {{protocol}}://{{host}}/render/?addr={{renderurl}}
+Content-Type: application/json
+
+{
+    "random2": "0.4433",
+    "random3": "0.1199"
+}

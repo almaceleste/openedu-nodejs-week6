@@ -3,11 +3,15 @@ import m from 'mongoose';
 import fs from 'fs';
 import crypto from 'crypto';
 import http from 'http';
+import pug from 'pug';
+
 
 import router from './router.js';
 import UserModel from './models/User.js';
+import { resolve } from 'path';
+import { error } from 'console';
 
-export { App as default, code, sha1, getData, insertOne };
+export { App as default, code, sha1, getData, sendData, notAllowed, render, insertOne };
 
 const headers = 'Content-Type, Accept, Access-Control-Allow-Headers,\
     login, password, URL';
@@ -26,11 +30,13 @@ function App(express, bodyParser, fs, crypto, http) {
 
     app
         .use(cors)
+        .use(bodyParser.json({ strict: false }))
         .use(bodyParser.urlencoded({ extended: true }))
         .use('/', router)
         .get('/dummy-path/', (r) => {
         })
         .use(finalhandler);
+        // .set('view engine', 'pug');
 
     return app;
 }
@@ -69,18 +75,34 @@ function sha1(r) {
     r.res.send(sha1.digest('hex'));
 }
 
-function getData(url, res) {
-    http.get(url, (response) => {
-        let data = '';
-        response.on('data', (chunk) => data += chunk);
-        response.on('end', () => {
-            res
-                .set({
-                    'Content-Type': 'text/plain; charset=utf-8',
-                })
-                .end(data);
-        });
+async function getData(url) {
+    const pr = (u) => new Promise((resolve, reject) => {
+        http.get(u, (response) => {
+            let data = '';
+            response.on('data', (chunk) => data += chunk);
+            response.on('end', () => {
+                resolve(data);
+            });
+        })
+        .on('error', (e) => reject(e));
     });
+    return pr(url);
+}
+
+function sendData(res, data) {
+    res
+    .set({
+        'Content-Type': 'text/plain; charset=utf-8',
+    })
+    .end(data);
+}
+
+function notAllowed(res) {
+    res.status(405).send('Method Not Allowed. Use method POST instead.');
+}
+
+function render(template, data) {
+    return pug.render(template, data);
 }
 
 // functions: mongodb
