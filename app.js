@@ -1,4 +1,5 @@
-import x from 'express';
+import express from 'express';
+import bodyParser from 'body-parser';
 import m from 'mongoose';
 import fs from 'fs';
 import crypto from 'crypto';
@@ -8,8 +9,6 @@ import pug from 'pug';
 
 import router from './router.js';
 import UserModel from './models/User.js';
-import { resolve } from 'path';
-import { error } from 'console';
 
 export { App as default, code, sha1, getData, sendData, notAllowed, render, insertOne };
 
@@ -23,9 +22,9 @@ const CORS = {
 };
 const User = UserModel();
 // application
-function App(express, bodyParser, fs, crypto, http) {
-    const app = x();
-    // const app = express();
+// function App(express, bodyParser, fs, crypto, http) {
+function App() {
+    const app = express();
     app.port = process.env.PORT || 3000;
 
     app

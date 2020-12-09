@@ -1,12 +1,13 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import fs from 'fs';
-import crypto from 'crypto';
-import http from 'http';
+// import express from 'express';
+// import bodyParser from 'body-parser';
+// import fs from 'fs';
+// import crypto from 'crypto';
+// import http from 'http';
 
 import App from './app.js';
 
-const app = App(express, bodyParser, fs, crypto, http);
+// const app = App(express, bodyParser, fs, crypto, http);
+const app = App();
 
 app.listen(app.port, logParams);
 
