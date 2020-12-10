@@ -9,6 +9,7 @@
 @requrl = http://node-server.online/r/assets/week.txt
 # @requrl = test
 @renderurl = http://kodaktor.ru/j/unsafe_0ebdb
+@testurl = https://kodaktor.ru/g/80b5cdf
 
 ###
 # @name root
@@ -60,3 +61,6 @@ Content-Type: application/json
     "random2": "0.4433",
     "random3": "0.1199"
 }
+###
+# @name test-puppet
+GET {{protocol}}://{{host}}/test/?URL={{testurl}}
