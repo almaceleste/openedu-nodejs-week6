@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import * as app from './app.js';
+import * as puppet from './puppet.js';
 
 export { router as default };
 
@@ -51,4 +52,15 @@ router
             random3: r.body.random3
         };
         r.res.send(app.render(view, data));
+    });
+
+router
+    .route('/test/')
+    .get(async (r) => {
+        puppet.args.button = '#bt';
+        puppet.args.input = '#inp';
+        const result = await puppet.test(r.query.URL);
+        r.res
+            .set({Accept: 'text/plain'})
+            .send(result);
     });
