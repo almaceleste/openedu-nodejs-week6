@@ -1,9 +1,9 @@
-import express from 'express';
+import { Router } from 'express';
 import * as app from './app.js';
 
 export { router as default };
 
-const router = express.Router();
+const router = Router();
 router
     .route('/code/')
     .get(app.code);
